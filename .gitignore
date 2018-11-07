@@ -4,6 +4,9 @@
 # Visual Studio Code
 .vscode
 
+# ignore this file as well, this file should be manually edited
+.gitignore
+
 # User-specific files
 *.suo
 *.user
