@@ -11,23 +11,23 @@ pipeline {
     }
     stage('Restore') {
       steps {
-        bat "dotnet restore"
+        bat "dotnet restore DotNetCorePipeline.sln"
       }
     }
     stage('Clean') {
       steps {
-        bat 'dotnet clean'
+        bat 'dotnet clean DotNetCorePipeline.sln'
       }
     }
     stage('Build') {
       steps {
-        bat 'dotnet build'
+        bat 'dotnet build DotNetCorePipeline.sln'
       }
     }
     stage('Test') {
       steps {
-	      bat returnStatus: true, script: 'dotnet test ./ConsoleAppTest/ConsoleAppTest.csproj --logger trx;LogFileName=TestResult.xml --no-build'
-	      step([$class: 'MSTestPublisher', testResultsFile:'**/TestResult.xml', failOnError: true, keepLongStdio: true])
+	      bat returnStatus: true, script: 'dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura ./ConsoleAppTest/ConsoleAppTest.csproj /p:CoverletOutput=/TestResults/ --logger trx --no-build'
+	      step([$class: 'MSTestPublisher', testResultsFile:'**/*.trx', failOnError: true, keepLongStdio: true])
 	    }     
     }
     stage('Publish') {
