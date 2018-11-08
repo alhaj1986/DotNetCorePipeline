@@ -24,7 +24,7 @@ pipeline {
     }
     stage('Publish') {
       steps {
-        bat 'dotnet publish ./ConsoleApp/ConsoleApp.csproj -c Release -o C:/JenkinsBuilds/${JOB_NAME}/${BUILD_NUMBER}'
+        bat 'dotnet publish ./ConsoleApp/ConsoleApp.csproj -c Release -o C:/JenkinsBuilds/${env.JOB_NAME}/${env.BUILD_NUMBER}'
       }
     }
   }
