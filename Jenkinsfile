@@ -26,7 +26,7 @@ pipeline {
     }
     stage('Test') {
       steps {
-	      bat returnStatus: true, script: 'dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura ./ConsoleAppTest/ConsoleAppTest.csproj /p:CoverletOutput=/TestResults/ --logger trx --no-build'
+	      bat returnStatus: true, script: 'dotnet test /p:CollectCoverage=true ./ConsoleAppTest/ConsoleAppTest.csproj --logger trx --no-build'
 	      step([$class: 'MSTestPublisher', testResultsFile:'**/*.trx', failOnError: true, keepLongStdio: true])
 	    }     
     }
