@@ -7,15 +7,7 @@ pipeline {
     stage('Checkout') {
       steps {
         git url: 'https://github.com/manjunath-papanna/DotNetCorePipeline.git', branch: 'master'
-      }
-    }
-    stage('Restore') {
-      steps {
         bat "dotnet restore DotNetCorePipeline.sln"
-      }
-    }
-    stage('Clean') {
-      steps {
         bat 'dotnet clean DotNetCorePipeline.sln'
       }
     }
@@ -26,7 +18,7 @@ pipeline {
     }
     stage('Test') {
       steps {
-	      bat returnStatus: true, script: 'dotnet test /p:CollectCoverage=true ./ConsoleAppTest/ConsoleAppTest.csproj --logger trx --no-build'
+	      bat returnStatus: true, script: 'dotnet test /p:CollectCoverage=true ./ConsoleAppTest/ConsoleAppTest.csproj --logger:trx --no-build'
 	      step([$class: 'MSTestPublisher', testResultsFile:'**/*.trx', failOnError: true, keepLongStdio: true])
 	    }     
     }
