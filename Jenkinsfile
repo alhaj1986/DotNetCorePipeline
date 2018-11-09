@@ -1,8 +1,5 @@
 pipeline {
   agent any
-  environment {
-    dotnet = 'C:/Program Files/dotnet/dotnet.exe'
-  }
   stages {
     stage('Checkout') {
       steps {
@@ -24,7 +21,7 @@ pipeline {
     }
     stage('Publish') {
       steps {
-        bat 'dotnet publish ./ConsoleApp/ConsoleApp.csproj -c Release -o C:/JenkinsBuilds/${env.JOB_NAME}/${env.BUILD_NUMBER}'
+        bat 'dotnet publish ./ConsoleApp/ConsoleApp.csproj -c Release -o C:/JenkinsBuilds/'+env.JOB_NAME+'/'+env.BUILD_NUMBER
       }
     }
   }
